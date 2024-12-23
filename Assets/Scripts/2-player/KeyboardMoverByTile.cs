@@ -16,6 +16,7 @@ public class KeyboardMoverByTile : KeyboardMover
     [SerializeField] GameObject Boat;
     [SerializeField] GameObject Goat;
     [SerializeField] GameObject Pickaxe;
+    [SerializeField] string PrincessTag = "Princess";
     bool onBoat = false;
     bool onGoat = false;
     Vector3 ScaleWhenOnBoat = new(0.5f, 0.5f, 1);
@@ -102,24 +103,14 @@ public class KeyboardMoverByTile : KeyboardMover
         //}
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("COLLISION");
-        GameManager.gameOver = true;
-    }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        Debug.Log("COLLISION2");
-
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        Debug.Log("COLLISION3");
-
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("TRIGGER");
+        if (collision.CompareTag(PrincessTag))
+        {
+            GameManager.youwin = true;
+            return;
+        }
         GameManager.gameOver = true;
     }
 }
